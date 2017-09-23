@@ -16,4 +16,4 @@ create a project a running
 Adding more libraries
 ----------------------
 
-As the projects get more advanced, more libraries will need to be added. I will make the `genproj.sh` module to allow for this.
+As the projects get more advanced, more libraries will need to be added. I will make `genproj.sh` more modular to allow for this.

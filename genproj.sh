@@ -16,7 +16,7 @@ export PROJDIR=$1/$2
 mkdir -p $PROJDIR/src/{main,test}/{java,resources,scala}
 mkdir $PROJDIR/lib $PROJDIR/project $PROJDIR/target
 
-# create an initial build.sbt file
+## CREATE an initial build.sbt file
 echo "name := \"Akka - $1 - $2\"
 version := \"1.0\"
 scalaVersion := \"2.11.8\"
