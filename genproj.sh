@@ -13,8 +13,8 @@ fi
 export ROOT_BUILD_DIR=$PWD
 export PROJDIR=$1/$2
 
-mkdir -p $PROJDIR/src/{main,test}/{java,resources,scala}
-mkdir $PROJDIR/lib $PROJDIR/project $PROJDIR/target
+mkdir -p $PROJDIR/src/{main,test}/{resources,scala}
+mkdir $PROJDIR/project $PROJDIR/target
 
 ## CREATE an initial build.sbt file
 echo "name := \"Akka - $1 - $2\"
@@ -25,3 +25,14 @@ libraryDependencies ++= Seq(
   \"com.typesafe.akka\" %% \"akka-actor\" % \"2.5.4\",
   \"com.typesafe.akka\" %% \"akka-testkit\" % \"2.5.4\" % Test
 )" > $PROJDIR/build.sbt
+
+echo "# general scala stuff
+*.class
+*.log
+
+# any jars
+*.jar
+
+# sbt stuff
+project/
+target/" > $PROJDIR/.gitignore
