@@ -4,6 +4,14 @@ import scala.concurrent.duration._
 case object Ping
 case object Pong
 
+object Pinger {
+  case object Pong
+}
+
+object Ponger {
+  case object Ping
+}
+
 class Pinger extends Actor {
   var countdown = 50
 
