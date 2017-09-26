@@ -1,7 +1,7 @@
 #!/bin/sh
 set -x
 
-if [ "$#" -ne 2 ] || [ -d "$1" ]; then
+if [ "$#" -ne 2 ] || [ -d "$1/$2" ]; then
   echo "Usage: $0 PROJECT_TYPE NEW_DIRECTORY" >&2
   echo "PROJECT_TYPE can be usage|tutorial|app"
   echo "usage - how to use a certain feature"
