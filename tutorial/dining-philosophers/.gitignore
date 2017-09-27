@@ -1,0 +1,13 @@
+# general scala stuff
+*.class
+*.log
+
+# any jars
+*.jar
+
+# sbt stuff
+project/
+target/
+
+# idea stuff
+.idea
