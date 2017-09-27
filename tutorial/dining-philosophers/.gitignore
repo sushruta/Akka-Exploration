@@ -8,3 +8,6 @@
 # sbt stuff
 project/
 target/
+
+# idea stuff
+.idea
