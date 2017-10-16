@@ -1,4 +1,4 @@
-package VerySimpleChatBlah
+package VerySimpleChat
 
 import akka.actor.{ ActorRef, Actor, FSM }
 import scala.concurrent.duration._
@@ -26,7 +26,7 @@ class ChatRoomActor(roomId: Int) extends Actor {
             broadcast(SystemMessage(s"User $name left channel[$roomId]"))
             participants -= name
 
-        case msg: IncomingMessage => broadcast(msg)
+        case IncomingMessage(sender: String, msg: String) => broadcast(ChatMessage(sender, msg))
     }
 
     def broadcast(message: ChatMessage): Unit = participants.values.foreach(_ ! message)

@@ -2,6 +2,7 @@ package VerySimpleChat
 
 import akka.actor.{ActorSystem, FSM}
 
+/*
 sealed trait ChatApplicationEvent
 case class CreateRoomInChatApplication(roomId: Int) extends ChatApplicationEvent
 case class NewUserInChatApplication(userName: String, roomId: Int) extends ChatApplicationEvent
@@ -49,6 +50,7 @@ class ChatApplicationManager(appName: String) extends FSM[ChatApplicationState, 
 
 	initialize()
 }
+*/
 
 object ChatRooms {
     var chatRooms: Map[Int, ChatRoom] = Map.empty[Int, ChatRoom]

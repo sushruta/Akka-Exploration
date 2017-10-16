@@ -16,6 +16,7 @@ object VerySimpleChat {
     implicit val system = ActorSystem("very-simple-chat")
     implicit val materializer = ActorMaterializer()
 
+    // /ws-chat/4211/?name=sashi
     val route = pathPrefix("ws-chat" / IntNumber) {
       chatId => {
         parameter('name) {
