@@ -1,4 +1,9 @@
-package VerySimpleChat
+package chatapp
+
+import akka.actor.ActorSystem
+import akka.stream.ActorMaterializer
+import akka.stream.scaladsl.{Sink, Source}
+import chatapp.Messages._
 
 import akka.actor.{ ActorRef, Actor, ActorSystem, Props }
 import akka.stream.ActorMaterializer
@@ -7,20 +12,20 @@ import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.ws.{ TextMessage, Message }
 import akka.http.scaladsl.server.Directives._
 import scala.io.StdIn
+
 import akka.stream.OverflowStrategy
 import akka.stream._
 import akka.stream.scaladsl._
 
-object VerySimpleChat {
+object ChatApplication {
   def main(args: Array[String]): Unit = {
-    implicit val system = ActorSystem("very-simple-chat")
+    implicit val system = ActorSystem("chat-application")
     implicit val materializer = ActorMaterializer()
 
-    // /ws-chat/4211/?name=sashi
     val route = pathPrefix("ws-chat" / IntNumber) {
-      chatId => {
+      channelId => {
         parameter('name) {
-          userName => handleWebSocketMessages(ChatRooms.findOrCreate(chatId).websocketFlow(userName))
+          username => handleWebSocketMessages(Channels.findOrCreate(channelId).chatFlow(User(username)))
         }
       }
     }

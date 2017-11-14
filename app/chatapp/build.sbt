@@ -1,4 +1,4 @@
-name := "Akka - tutorial - verysimplechat"
+name := "Akka - app - chatapp"
 version := "1.0"
 scalaVersion := "2.11.8"
 
