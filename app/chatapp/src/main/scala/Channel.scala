@@ -34,14 +34,17 @@ class Channel(channelId: Int, actorSystem: ActorSystem) {
           case _ => TextMessage(s"do not know what I just received")
         })
 
-        val merge = builder.add(Merge[ChatMessage](2))
+        val merge = builder.add(Concat[ChatMessage](2))
 
         val channelActorSink = Sink.actorRefWithAck(channelActor, ActorInitMessage, AckMessage, UserLeft(user))
 
         val actorAsSource = builder.materializedValue.map { actor => UserJoined(user, actor) }
 
-        messageFromOutside ~> merge.in(0)
-        actorAsSource ~> merge.in(1)
+        // merge is a concat shape. messages from (0)
+        // will get a higher preference than messages from (1)
+        actorAsSource ~> merge.in(0)
+        messageFromOutside ~> merge.in(1)
+        
         merge ~> channelActorSink
         chatSource ~> messageToOutside
 
