@@ -1,5 +1,6 @@
 package chatapp
 
+import scala.io.AnsiColor._
 import akka.actor.{Actor, ActorLogging, ActorRef}
 import chatapp.Messages._
 
@@ -9,37 +10,37 @@ class ChannelActor extends Actor with ActorLogging {
   def receive = {
     case UserJoined(user: User, actor: ActorRef) => {
       participants += (user -> actor)
-      log.info("received a user joined message")
+      log.info(BOLD + BLUE + "received a user joined message" + RESET)
       broadcast(SystemMessage(s"${user.username} joined the channel"))
       sender() ! AckMessage
     }
 
     case UserLeft(user: User) => {
       participants -= user
-      log.info("received a UserLeft message")
+      log.info(BOLD + YELLOW + "received a UserLeft message" + RESET)
       broadcast(SystemMessage(s"${user.username} left the channel"))
       // no need for this I guess
       sender() ! AckMessage
     }
 
     case tm: UserTextMessage => {
-      log.info(s"${tm.user.username} sent a message")
+      log.info(BOLD + GREEN + s"${tm.user.username} sent a message" + RESET)
       broadcast(tm)
       sender() ! AckMessage
     }
 
     case ActorInitMessage => {
-      log.info(s"channel initialized and ready to take events")
+      log.info(BOLD + WHITE + s"channel initialized and ready to take events" + RESET)
       sender() ! AckMessage
     }
 
     case InvalidMessage => {
-      log.error(s"given an invalid message")
+      log.error(BOLD + RED + s"given an invalid message" + RESET)
       sender() ! AckMessage
     }
 
     case _ => {
-      log.error("unexpected message received. dropping it")
+      log.error(BOLD + RED + "unexpected message received. dropping it" + RESET)
       sender() ! AckMessage
     }
   }
